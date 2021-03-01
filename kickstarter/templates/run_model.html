@@ -4,13 +4,25 @@
 
 <div class='jumbotron' align="center">
 	<img src='static/img/coffee.jpg' alt='NULL IMAGE' style='width:1940px;height:650px;' class='img-fluid'/>
-	<form method='POST'>
-	<h2 align="center"> KICK - STARTER </h2>
-	
-	<li align="left"></li>
-	<li align="left"></li>
-	
-	</form>
+<h3> ENTER YOUR KICK STARTER DETAILS </h3>
+</div>
+<br>
+<form method='POST'>
+	<div class='container'>
+		{{form.hidden_tag()}}
+		<div class='row mb-3'>
+		{{form.kickstarter_name.label(class='col-form-label-lg')}}{{form.kickstarter_name}}
+		<br><br>
+		{{form.kickstarter_id.label(class='col-form-label-lg')}}{{form.kickstarter_id}}
+		<h1> </h1>
+		<br>
+		<h1> </h1>
+		
+		</div>
+		{{form.submit}}
+	</div>
+</form>
+
 </div>
 
 

@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 from flask import Flask, redirect, url_for, render_template
 import os
-#from forms import forms
+from .forms import KickStarterForm
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score, mean_squared_error
 from sklearn.model_selection import train_test_split
@@ -31,13 +31,21 @@ def create_app():
 
 	@app.route('/run_model', methods=['GET','POST'])
 	def run_model():
-		return render_template('run_model.html')
+		form = KickStarterForm()
+		if form.validate_on_submit():
+			print('Validating form data')
+			name = form.kickstarter_name.data
+			ks_id = form.kickstarter_id.data
+			forms_data=(name,ks_id)
+			return redirect(url_for('display_results'))
+
+		return render_template('run_model.html', form=form)
 
 
 
 	@app.route('/display_results')
 	def display_results():
-		return render_template('run_model.html')
+		return render_template('home.html')
 
 
 	@app.route('/about')
@@ -48,4 +56,4 @@ def create_app():
 	return app
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	create_app()
