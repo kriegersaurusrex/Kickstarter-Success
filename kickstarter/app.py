@@ -36,7 +36,29 @@ def create_app():
 			print('Validating form data')
 			name = form.kickstarter_name.data
 			ks_id = form.kickstarter_id.data
-			forms_data=(name,ks_id)
+			ks_blurb = form.kickstarter_blurb.data
+			ks_created = form.kickstarter_created.data
+			ks_lunched = form.kickstarter_launched.data
+			ks_deadline = form.kickstarter_deadline.data
+			ks_staffpick = form.kickstarter_staffpick.data
+			ks_locationtype = form.kickstarter_locationtype.data
+			ks_locationstate = form.kickstarter_locationstate.data
+			ks_country = form.kickstarter_country.data
+			ks_currency = form.kickstarter_currency.data
+			ks_creatorid = form.kickstarter_creatorid.data
+			ks_usdgoal = form.kickstarter_usdgoal.data
+			ks_usdpledge = form.kickstarter_usdpledge.data
+			ks_creatorid = form.kickstarter_creatorid.data
+			ks_creatorname = form.kickstarter_creatorname.data
+			ks_locationid = form.kickstarter_locationid.data
+			ks_spotlight = form.kickstarter_spotlight.data
+			ks_categoryname = form.kickstarter_categoryname.data
+			ks_categoryslug = form.kickstarter_categoryslug.data
+			ks_categoryparentid = form.kickstarter_categoryparentid.data
+			ks_categoryposition = form.kickstarter_categoryposition.data
+
+			# This is where you enter all of this data into your model    #
+			# Note, still testing entry data to see what output types are #
 			return redirect(url_for('display_results'))
 
 		return render_template('run_model.html', form=form)
@@ -57,3 +79,4 @@ def create_app():
 
 if __name__ == "__main__":
 	create_app()
+
