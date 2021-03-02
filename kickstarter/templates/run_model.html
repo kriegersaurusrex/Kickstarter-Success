@@ -12,12 +12,31 @@
 		{{form.hidden_tag()}}
 		<div class='row mb-3'>
 		{{form.kickstarter_name.label(class='col-form-label-lg')}}{{form.kickstarter_name}}
-		<br><br>
-		{{form.kickstarter_id.label(class='col-form-label-lg')}}{{form.kickstarter_id}}
-		<h1> </h1>
 		<br>
-		<h1> </h1>
+		{{form.kickstarter_id.label(class='col-form-label-lg')}}{{form.kickstarter_id}}
+		<br>
+		{{form.kickstarter_staffpick.label(class='col-form-label-lg')}}{{form.kickstarter_staffpick}}
+		<br>
+		{{form.kickstarter_spotlight.label(class='col-form-label-lg')}}{{form.kickstarter_spotlight}}
+		<br>
 		
+		<br>
+		{{form.kickstarter_country.label(class='col-form-label-lg')}}{{form.kickstarter_country}}
+		<br>
+		<br>
+		<div class="form-group" style="display:inline-block; width:30%;padding-right: 3%;">
+  			{{form.kickstarter_currency.label(class='col-form-label-lg')}}{{form.kickstarter_currency}}           
+			</div>
+
+		<div class="form-group" style="display:inline-block; width:30%; padding-left: 3%;">
+		    {{form.kickstarter_usdgoal.label(class='col-form-label-lg')}}{{form.kickstarter_usdgoal}}
+			</div>
+		
+		<div class="form-group" style="display:inline-block; width:30%; padding-left: 3%;">
+		    {{form.kickstarter_usdpledge.label(class='col-form-label-lg')}}{{form.kickstarter_usdpledge}}
+			</div>
+
+
 		</div>
 		{{form.submit}}
 	</div>
