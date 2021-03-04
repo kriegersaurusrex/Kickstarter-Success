@@ -4,11 +4,9 @@ from wtforms import IntegerField, SubmitField,\
 				StringField, SelectField, DecimalField,\
 				DateField
 from wtforms.validators import DataRequired, ValidationError
+from flask_bootstrap import Bootstrap
 import os
 import pickle
-
-#print(os.getcwd())
-
 
 
 

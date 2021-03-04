@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np 
 import pickle
 from flask import Flask, redirect, url_for, render_template
+from flask_bootstrap import Bootstrap
 import os
 from joblib import dump, load
 from .forms import KickStarterForm
@@ -26,6 +27,7 @@ def create_app():
 	app = Flask(__name__)
 	# Set secret key in your environment variables #
 	app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+	Bootstrap(app) # Trying out Bootstrap for styling forms
 
 	@app.route('/')
 	def index():
@@ -40,15 +42,12 @@ def create_app():
 	def run_model():
 		proceed_flag = True
 		form = KickStarterForm()
-		print('Form Exectuted... Now Validating')
-		print('Form Validation: ', form.validate())
+		
 		for fieldname, value in form.data.items():
 			print(fieldname, value)
 			if value == None:
 				proceed_flag = False
-			
-		print('Form Validation Status: ',form.validate())
-
+		
 		if proceed_flag:
 			data_input = prepare_input_data(form)
 			result = make_prediction(data_input)
@@ -56,18 +55,13 @@ def create_app():
 			# Note, still testing entry data to see what output types are #
 			return render_template('display_success.html', form=form, result=result)
 		
-		return render_template('run_model.html', form=form)
+		return render_template('run_model_styled.html', form=form)
 
-
-
-	# @app.route('/display_results')
-	# def display_results():
-	# 	return render_template('display_success.html')
 
 
 	@app.route('/about')
 	def about_page():
-		return render_template('about.html')
+		return render_template('index.html')
 
 
 	def prepare_input_data(form):
@@ -146,8 +140,6 @@ def create_app():
 		prediction = model.predict(X_data)
 		print('Your Prediction is: ',prediction)
 		return predictions[prediction[0]]
-
-
 
 
 
