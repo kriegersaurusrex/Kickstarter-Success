@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 from flask import Flask, redirect, url_for, render_template
 from flask_bootstrap import Bootstrap
+import sqlite3
 import os
 from joblib import dump, load
 from .forms import KickStarterForm
@@ -16,6 +17,7 @@ from sklearn.metrics import accuracy_score, plot_confusion_matrix, classificatio
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+from .models import DB, KickStarter
 import seaborn as sns
 from dotenv import load_dotenv
 
@@ -28,13 +30,21 @@ def create_app():
 	# Set secret key in your environment variables #
 	app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 	Bootstrap(app) # Trying out Bootstrap for styling forms
-
+	DATABASE = 'sqlite:///db.sqlite3'
+	app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
+	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+	DB.init_app(app)
+	
+	
+		
 	@app.route('/')
 	def index():
 		return redirect(url_for('home'))
 
 	@app.route('/home')
 	def home():
+		DB.drop_all()
+		DB.create_all()
 		return render_template('home.html')
 
 
@@ -61,7 +71,7 @@ def create_app():
 
 	@app.route('/about')
 	def about_page():
-		return render_template('index.html')
+		return render_template('about.html')
 
 
 	def prepare_input_data(form):
@@ -131,6 +141,11 @@ def create_app():
 		df['days_for_project'] = pd.to_numeric(df['days_for_project'].dt.days, downcast='integer')
 		df.drop(columns=['created_at2', 'launched_at2', 'deadline2'], inplace=True)
 		print(df[['launched_at','deadline','created_at']])
+		# Write minimal data to sql database #
+
+		ks_row = KickStarter(id=ks_id, name=name, usd_goal=ks_usdgoal, country=ks_country)
+		DB.session.add(ks_row)
+		DB.session.commit()
 		print(df.head())
 		return df
 
